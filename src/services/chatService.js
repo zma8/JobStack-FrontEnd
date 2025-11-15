@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL || 'http://localhost:3000';
  
 export const getUserChats = async (userId) => {
   try {

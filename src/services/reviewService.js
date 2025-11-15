@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL|| 'http://localhost:3000';
 
 export const createReview = async (freelancerId, clientId, rating, comment) => {
   try {
@@ -16,6 +16,23 @@ export const createReview = async (freelancerId, clientId, rating, comment) => {
     return await res.json();
   } catch (error) {
     console.error('Error creating review:', error);
+    throw error;
+  }
+};
+
+export const getFreelancerReviews = async (freelancerId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${BASE_URL}/reviews/freelancer/${freelancerId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    if (!response.ok) throw new Error('Failed to fetch reviews');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
     throw error;
   }
 };
