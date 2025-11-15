@@ -12,6 +12,9 @@ import Profile from './components/Profile/Profile';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 
+//import JobList
+import JobList from './components/JobList/JobList';
+
 const App = () => {
   const { user } = useContext(UserContext);
 
@@ -28,6 +31,9 @@ const App = () => {
             <Route path='/favs' element={<h1>Favs</h1>}/>
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/orders' element={<h1>ORDERS</h1>}/>
+
+            {/* Add JobList route */}
+            <Route path='/jobs' element={<JobList />} />
           </>
             :
             <Route path='/' element={<Landing/>}/>
