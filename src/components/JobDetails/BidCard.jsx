@@ -1,7 +1,7 @@
 import { acceptBid } from "../../services/jobsService";
 
-export default function BidCard({ bid, ownerId }) {
-  const userId = localStorage.getItem("userId");
+export default function BidCard({ bid, ownerId, user }) {
+  const userId = user?._id;
 
   const handleAccept = async () => {
     await acceptBid(bid._id);

@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getJobById } from "../../services/jobsService";
 import BidList from "./BidList";
 import SubmitBidForm from "./SubmitBidForm";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function JobDetails() {
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -36,11 +38,15 @@ export default function JobDetails() {
 
       <hr />
 
-      {job.status === "Open" && <SubmitBidForm jobId={job._id} />}
+      {job.status === "Open" &&
+        user?.role === "freelancer" &&
+        user?._id !== job.owner?._id && (
+          <SubmitBidForm jobId={job._id} />
+        )}
 
       <hr />
 
-      <BidList bids={job.bids} ownerId={job.owner?._id} />
+      <BidList bids={job.bids} ownerId={job.owner?._id} user={user} />
     </div>
   );
 }
