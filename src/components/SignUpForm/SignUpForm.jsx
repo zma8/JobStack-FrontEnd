@@ -19,12 +19,17 @@ const SignUpForm = () => {
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
     username: '',
+    Email: '',
+    Role: '',
     password: '',
     passwordConf: '',
+
   });
 
 
-  const { username, password, passwordConf } = formData;
+  //add email+role
+
+  const { username, Email, Role, password, passwordConf } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -47,7 +52,7 @@ const SignUpForm = () => {
   };
 
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    return !(username && Email && Role && password && password === passwordConf);
   };
 
   return (
@@ -66,6 +71,34 @@ const SignUpForm = () => {
             required
           />
         </div>
+
+        <div>
+          <label htmlFor='Email'>Email:</label>
+          <input
+            type='Email'
+            id='Email'
+            value={Email}
+            name='Email'
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+  <label htmlFor="Role">Role:</label>
+  <select
+    id="Role"
+    name="Role"
+    value={Role}
+    onChange={handleChange}
+    required
+  >
+    <option value="">Select Role</option>
+    <option value="User">User</option>
+    <option value="Manager">Manager</option>
+  </select>
+</div>
+
         <div>
           <label htmlFor='password'>Password:</label>
           <input
@@ -77,6 +110,7 @@ const SignUpForm = () => {
             required
           />
         </div>
+
         <div>
           <label htmlFor='confirm'>Confirm Password:</label>
           <input
