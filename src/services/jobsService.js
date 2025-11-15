@@ -91,3 +91,28 @@ export const acceptBid = async (bidId) => {
     return null;
   }
 };
+
+// Create a new job
+export const createJob = async (jobData) => {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify(jobData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.err || "Failed to create job");
+    }
+
+    return data;
+  } catch (err) {
+    console.error("Error creating job:", err);
+    return null;
+  }
+};

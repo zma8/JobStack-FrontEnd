@@ -1,17 +1,13 @@
 // src/components/NavBar/NavBar.jsx
 
-// Import the useContext hook
 import { useContext } from 'react';
 import { Link } from 'react-router';
-
-// Import the UserContext object
-
 import { UserContext } from '../../contexts/UserContext';
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
 
-   const handleSignOut = () => {
+  const handleSignOut = () => {
     localStorage.removeItem('token');
     setUser(null);
   };
@@ -21,8 +17,22 @@ const NavBar = () => {
       {user ? (
         <ul>
           <li>Welcome, {user.username}</li>
+
+          {/* Link to Dashboard */}
           <li><Link to='/'>Dashboard</Link></li>
+
+          {/* link to Job List */}
+          <li><Link to='/jobs'>Job List</Link></li>
+
           <li><Link to='/profile'>Profile</Link></li>
+
+          {/* Show "Post a Job" link only if user is a client */}
+          {user.role === "client" && (
+            <li>
+              <Link to="/jobs/new">Post a Job</Link>
+            </li>
+          )}
+
           <li><Link to='/' onClick={handleSignOut}>Sign Out</Link></li>
         </ul>
       ) : (
