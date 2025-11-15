@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const JobCard = ({ job }) => {
   return (
@@ -24,6 +25,10 @@ const JobCard = ({ job }) => {
       <small style={styles.date}>
         Posted: {new Date(job.createdAt).toLocaleDateString()}
       </small>
+
+      <Link to={`/jobs/${job._id}`} style={styles.button}>
+        View Details
+      </Link>
     </div>
   );
 };
@@ -63,6 +68,17 @@ const styles = {
   date: {
     color: "#666",
     fontSize: "12px",
+  },
+
+  button: {
+    marginTop: "10px",
+    display: "inline-block",
+    background: "#007bff",
+    color: "#fff",
+    padding: "8px 14px",
+    borderRadius: "8px",
+    textDecoration: "none",
+    fontSize: "14px",
   },
 };
 

@@ -14,6 +14,7 @@ import { UserContext } from './contexts/UserContext';
 
 //import JobList
 import JobList from './components/JobList/JobList';
+import JobDetails from './components/JobDetails/JobDetails';
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -34,6 +35,8 @@ const App = () => {
 
             {/* Add JobList route */}
             <Route path='/jobs' element={<JobList />} />
+            {/* Job Details route */}
+            <Route path='/jobs/:id' element={<JobDetails />} />
           </>
             :
             <Route path='/' element={<Landing/>}/>
