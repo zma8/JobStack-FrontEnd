@@ -24,5 +24,47 @@ export default function ChatList({ currentUserId, onSelectChat }) {
     return <div>Loading chats...</div>;
   }
 
+  return (
+    <div>
+      <h2>Messages</h2>
+
+      {chats.length === 0 ? (
+        <div>
+          <p>No conversations yet</p>
+          <p>Start chatting when a bid is accepted!</p>
+        </div>
+      ) : (
+        <div>
+          {chats.map((chat) => {
+            const otherUser = chat.participants.find(
+              (p) => p._id !== currentUserId
+            );
+
+            const lastMessage = chat.messages[chat.messages.length - 1];
+
+            return (
+              <div
+                key={chat._id}
+                onClick={() => onSelectChat(chat._id, otherUser)}
+              >
+                <div>
+                  <div>{otherUser?.username?.[0]?.toUpperCase() || '?'}</div>
+                  <div>
+                    <p>{otherUser?.username || 'Unknown User'}</p>
+                    {lastMessage ? (
+                      <p>{lastMessage.text}</p>
+                    ) : (
+                      <p>No messages yet</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+
   
 }
