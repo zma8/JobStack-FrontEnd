@@ -23,16 +23,33 @@ export const createReview = async (freelancerId, clientId, rating, comment) => {
 export const getFreelancerReviews = async (freelancerId) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch(`${BASE_URL}/reviews/freelancer/${freelancerId}`, {
+    const res = await fetch(`${BASE_URL}/reviews/freelancer/${freelancerId}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
     
-    if (!response.ok) throw new Error('Failed to fetch reviews');
-    return await response.json();
+    if (!res.ok) throw new Error('Failed to fetch reviews');
+    return await res.json();
   } catch (error) {
     console.error('Error fetching reviews:', error);
+    throw error;
+  }
+};
+
+export const getReview = async (reviewId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${BASE_URL}/reviews/${reviewId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    if (!res.ok) throw new Error('Failed to fetch review');
+    return await res.json();
+  } catch (error) {
+    console.error('Error fetching review:', error);
     throw error;
   }
 };
