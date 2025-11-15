@@ -17,3 +17,22 @@ export const getUserChats = async (userId) => {
   }
 };
 
+export const createChat = async (freelancerId, clientId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${BASE_URL}/chats`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ freelancerId, clientId })
+    });
+    
+    if (!response.ok) throw new Error('Failed to create chat');
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating chat:', error);
+    throw error;
+  }
+};
