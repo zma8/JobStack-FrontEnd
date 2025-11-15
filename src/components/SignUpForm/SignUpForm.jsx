@@ -94,7 +94,7 @@ const SignUpForm = () => {
     required
   >
     <option value="">Select Role</option>
-    <option value="client">Client</option>
+    <option value="client">Clientt</option>
     <option value="freelancer">Freelancer</option>
   </select>
 </div>
