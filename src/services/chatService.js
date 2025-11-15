@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL || 'http://localhost:3000';
  
 export const getUserChats = async (userId) => {
   try {
@@ -57,7 +57,7 @@ export const getChatMessages = async (chatId) => {
 export const sendMessage = async (chatId, senderId, text) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch(`${BASE_URL}/chats/${chatId}/messages`, {
+    const res = await fetch(`${BASE_URL}/chats/${chatId}/messages`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,8 +66,8 @@ export const sendMessage = async (chatId, senderId, text) => {
       body: JSON.stringify({ senderId, text })
     });
     
-    if (!response.ok) throw new Error('Failed to send message');
-    return await response.json();
+    if (!res.ok) throw new Error('Failed to send message');
+    return await res.json();
   } catch (error) {
     console.error('Error sending message:', error);
     throw error;
