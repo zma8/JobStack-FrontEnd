@@ -31,5 +31,40 @@ export default function ReviewModal({ freelancerId, clientId, onClose, onSuccess
     }
   };
 
-  
+  return(
+    <div>
+      <div>
+        <h2>Leave a Review</h2>
+
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Rating</label>
+            <StarRating
+              rating={rating}
+              onRatingChange={setRating}
+            />
+          </div>
+
+          <div>
+            <label>Comment (Optional)</label>
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              rows={4}
+              placeholder="Share your experience..."
+            />
+          </div>
+
+          <div>
+            <button type="button" onClick={onClose} disabled={submitting}>
+              Cancel
+            </button>
+            <button type="submit" disabled={submitting || rating === 0}>
+              {submitting ? 'Submitting...' : 'Submit Review'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
