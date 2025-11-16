@@ -12,9 +12,12 @@ import Profile from './components/Profile/Profile';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 
-//import JobList
+// Import JobList and JobDetails components
 import JobList from './components/JobList/JobList';
 import JobDetails from './components/JobDetails/JobDetails';
+
+// Import the CreateJobForm component (for posting new jobs)
+import CreateJobForm from './components/CreateJob/CreateJobForm';
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -24,23 +27,28 @@ const App = () => {
       <NavBar />
 
       <Routes>
-        {
-          user ?
+        {user ? (
           <>
-            <Route path='/' element={<Dashboard/>}/>
-            <Route path='/products' element={<h1>Producs</h1>}/>
-            <Route path='/favs' element={<h1>Favs</h1>}/>
-            <Route path='/profile' element={<Profile/>}/>
-            <Route path='/orders' element={<h1>ORDERS</h1>}/>
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/products' element={<h1>Products</h1>} />
+            <Route path='/favs' element={<h1>Favs</h1>} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/orders' element={<h1>ORDERS</h1>} />
 
-            {/* Add JobList route */}
+            {/* Job listing route */}
             <Route path='/jobs' element={<JobList />} />
-            {/* Job Details route */}
+
+            {/* Job details route */}
             <Route path='/jobs/:id' element={<JobDetails />} />
+
+            {/* Route for creating a new job, accessible by clients only */}
+            <Route path='/jobs/new' element={<CreateJobForm />} />
           </>
-            :
-            <Route path='/' element={<Landing/>}/>
-        }
+        ) : (
+          <Route path='/' element={<Landing />} />
+        )}
+
+        {/* Public auth routes */}
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm />} />
       </Routes>
@@ -49,4 +57,3 @@ const App = () => {
 };
 
 export default App;
-
