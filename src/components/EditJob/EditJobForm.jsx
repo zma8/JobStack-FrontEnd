@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getJobById } from "../../services/jobsService";
 
 export default function EditJobForm() {
-  const { id } = useParams(); // Get job ID from URL
+  const { id } = useParams(); // Get job ID from URLL
   const navigate = useNavigate();
 
   const [jobData, setJobData] = useState({
