@@ -15,5 +15,21 @@ export default function ReviewModal({ freelancerId, clientId, onClose, onSuccess
       return;
     }
 
-  }
+    setSubmitting(true);
+
+    try{
+        await createReview(freelancerId,clientId,rating,comment.trim()||undefined);
+
+        if(onSuccess ) onSuccess();
+        onClose();
+
+    }catch (error) {
+      console.error('Error submitting review:', error);
+      alert('Failed to submit review. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  
 }
