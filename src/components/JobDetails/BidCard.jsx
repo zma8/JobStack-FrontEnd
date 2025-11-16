@@ -1,11 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import { acceptBid } from "../../services/jobsService";
+import { createChat } from "../../services/chatService";
 
 export default function BidCard({ bid, ownerId, user }) {
   const userId = user?._id;
 
   const handleAccept = async () => {
+    try{
     await acceptBid(bid._id);
-    window.location.reload();
+     await createChat(bid.freelancerId._id, userId);
+     navigate('/chat');
+    }catch (error) {
+      console.error('Error accepting bid:', error);
+      alert('Failed to accept bid. Please try again.');
+    }
   };
 
   return (
