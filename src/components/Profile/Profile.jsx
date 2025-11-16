@@ -1,48 +1,67 @@
-import React, { useEffect, useState } from "react";
-import { getCurrentUser } from '../../services/userService';
+import React, { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { getCurrentUser, getUserById } from '../../services/userService';
+import { UserContext } from '../../contexts/UserContext';
+import ReviewsList from '../Reviews/ReviewsList';
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
+  const { userId } = useParams(); 
+  const { user: currentUser } = useContext(UserContext); 
+  const [profileUser, setProfileUser] = useState(null);
   const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const isOwnProfile = !userId || userId === currentUser?._id;
 
   useEffect(() => {
-    const getUser = async () => {
-      const data = await getCurrentUser();
-      setUser(data);
+    const fetchProfile = async () => {
+      try {
+        if (isOwnProfile) {
+          const data = await getCurrentUser();
+          setProfileUser(data);
+        } else {
+          const data = await getUserById(userId);
+          setProfileUser(data);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+        setLoading(false);
+      }
     };
-    getUser();
-  }, []);
+    fetchProfile();
+  }, [userId, isOwnProfile]);
 
-  if (!user) return <nav>Loading...</nav>;
+  if (loading) return <div>Loading...</div>;
+  if (!profileUser) return <div>User not found</div>;
 
   return (
-    <nav>
-      <h3>My Profile</h3>
-
+    <div>
+      <h3>{isOwnProfile ? 'My Profile' : `${profileUser.username}'s Profile`}</h3>
 
       {!editing ? (
-        <p><strong>Name:</strong> {user.username}</p>
+        <p><strong>Name:</strong> {profileUser.username}</p>
       ) : (
         <input
           type="text"
-          value={user.username}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          value={profileUser.username}
+          onChange={(e) => setProfileUser({ ...profileUser, username: e.target.value })}
         />
       )}
 
-
       {!editing ? (
-        <p><strong>Email:</strong> {user.email}</p>
+        <p><strong>Email:</strong> {profileUser.email}</p>
       ) : (
         <input
           type="email"
-          value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          value={profileUser.email}
+          onChange={(e) => setProfileUser({ ...profileUser, email: e.target.value })}
         />
       )}
 
-   
-      {user.role === "Client" && !editing && (
+      <p><strong>Role:</strong> {profileUser.role}</p>
+
+      {isOwnProfile && !editing && (
         <button onClick={() => setEditing(true)}>Edit</button>
       )}
 
@@ -50,16 +69,24 @@ const Profile = () => {
         <button onClick={() => setEditing(false)}>Save</button>
       )}
 
-
-      {user.role === "freelancer" && (
+      {profileUser.role === "freelancer" && (
         <div>
           <h4>Skills</h4>
-          {user.freelancerProfile.skills?.map((s, i) => (
-            <li key={i}>{s}</li>
-          ))}
+          {profileUser.freelancerProfile?.skills?.length > 0 ? (
+            <ul>
+              {profileUser.freelancerProfile.skills.map((skill, i) => (
+                <li key={i}>{skill}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No skills listed</p>
+          )}
+
+          <h4>Reviews</h4>
+          <ReviewsList freelancerId={profileUser._id} />
         </div>
       )}
-    </nav>
+    </div>
   );
 };
 

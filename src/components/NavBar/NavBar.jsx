@@ -23,6 +23,8 @@ const NavBar = () => {
 
           {/* link to Job List */}
           <li><Link to='/jobs'>Job List</Link></li>
+          
+          <li><Link to='/chat'>Messages</Link></li>
 
           <li><Link to='/profile'>Profile</Link></li>
 
