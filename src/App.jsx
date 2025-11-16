@@ -17,6 +17,10 @@ import JobDetails from './components/JobDetails/JobDetails';
 // Import the CreateJobForm component (for posting new jobs)
 import CreateJobForm from './components/CreateJob/CreateJobForm';
 
+//Edit Job
+import EditJobForm from './components/EditJob/EditJobForm.jsx';
+
+
 const App = () => {
   const { user } = useContext(UserContext);
 
@@ -43,6 +47,8 @@ const App = () => {
 
             {/* Route for creating a new job, accessible by clients only */}
             <Route path='/jobs/new' element={<CreateJobForm />} />
+
+            <Route path='/jobs/:id/edit' element={<EditJobForm />} />
 
              <Route path='/chat' element={<ChatPage />} />
           </>
