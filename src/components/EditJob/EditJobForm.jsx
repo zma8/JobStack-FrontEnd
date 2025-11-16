@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getJobById } from "../../services/jobsService";
 
 export default function EditJobForm() {
-  const { id } = useParams(); // Get job ID from URLL
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   const [jobData, setJobData] = useState({
@@ -40,7 +40,6 @@ export default function EditJobForm() {
     "Other"
   ];
 
-  // Fetch job data when page loads
   useEffect(() => {
     const fetchJob = async () => {
       const job = await getJobById(id);
@@ -75,7 +74,7 @@ export default function EditJobForm() {
     setTimeout(() => setShowMessage(false), 3000); // Hide after 3 seconds
   };
 
-  // Handle form submit
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
