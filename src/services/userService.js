@@ -67,3 +67,29 @@ export const getCurrentUser = async () => {
     throw new Error(err);
   }
 }
+
+export const getUserById = async (userId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const res = await fetch(
+      `${import.meta.env.VITE_BACK_END_SERVER_URL}/users/${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.err) {
+      throw new Error(data.err);
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Error fetching user by ID:', err);
+    throw new Error(err);
+  }
+};

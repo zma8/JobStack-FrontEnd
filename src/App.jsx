@@ -31,6 +31,8 @@ const App = () => {
             <Route path='/products' element={<h1>Products</h1>} />
             <Route path='/favs' element={<h1>Favs</h1>} />
             <Route path='/profile' element={<Profile />} />
+              <Route path='/profile/:userId' element={<Profile />} />
+
             <Route path='/orders' element={<h1>ORDERS</h1>} />
 
             {/* Job listing route */}
