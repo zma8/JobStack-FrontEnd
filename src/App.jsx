@@ -20,7 +20,7 @@ const App = () => {
       <NavBar />
 
       <Routes>
-        {
+           {
           user ?
           <>
             <Route path='/' element={<Dashboard/>}/>
