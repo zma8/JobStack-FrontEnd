@@ -32,11 +32,13 @@ export default function ReviewModal({ freelancerId, clientId, onClose, onSuccess
   };
 
   return(
-    <div>
-      <div>
+     <div className="review-modal-overlay">
+    <div className="review-modal-content">
+      <h2>Leave a Review</h2>
+      <form onSubmit={handleSubmit}>
+  
         <h2>Leave a Review</h2>
 
-        <form onSubmit={handleSubmit}>
           <div>
             <label>Rating</label>
             <StarRating

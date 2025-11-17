@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getChatMessages, sendMessage } from '../../services/chatService';
 import socket from '../../socket';
+import '../../styles.css';
 
 export default function ChatWindow({ chatId, currentUser, otherUser }) {
   const [messages, setMessages] = useState([]);
@@ -15,6 +16,7 @@ export default function ChatWindow({ chatId, currentUser, otherUser }) {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
   useEffect(() => {
     if (!chatId) return;
     fetchMessages();
@@ -61,22 +63,31 @@ export default function ChatWindow({ chatId, currentUser, otherUser }) {
   };
 
   if (loading) {
-    return <div>Loading messages...</div>;
+    return <div className="loading">Loading messages...</div>;
   }
 
-  return (
-    <div>
+  if (!chatId) {
+    return (
+      <div className="chat-empty-state">
+        <div className="chat-empty-icon">💬</div>
+        <p className="chat-empty-text">Select a conversation to begin.</p>
+      </div>
+    );
+  }
 
-      <div>
+
+  return (
+    <div className="chat-window">
+      <div className="chat-header">
         <h3>{otherUser?.username || 'Unknown User'}</h3>
         <p>{otherUser?.role}</p>
       </div>
 
-      <div>
+       <div className="chat-messages">
         {messages.length === 0 ? (
-          <div>
-            <p>No messages yet</p>
-            <p>Start the conversation!</p>
+           <div className="chat-empty-state">
+            <div className="chat-empty-icon">💬</div>
+            <p className="chat-empty-text">No messages yet. Start the conversation!</p>
           </div>
 
         ) : (
@@ -84,17 +95,19 @@ export default function ChatWindow({ chatId, currentUser, otherUser }) {
             const isMyMessage = msg.sender._id === currentUser.id;
 
             return (
-              <div key={index}>
-                {!isMyMessage && <p>{msg.sender?.username}</p>}
+              <div
+                key={index}
+                className={`message ${isMyMessage ? "message-own" : "message-other"}`}
+              >
+                {!isMyMessage && <strong>{msg.sender.username}</strong>}
                 <p>{msg.text}</p>
-                <p>
-
+                
+                <small>
                   {new Date(msg.createdAt).toLocaleTimeString([], {
                     hour: '2-digit',
                     minute: '2-digit'
                   })}
-                </p>
-
+                  </small>
               </div>
             );
           })
@@ -102,14 +115,14 @@ export default function ChatWindow({ chatId, currentUser, otherUser }) {
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSendMessage}>
+      <form className="chat-input" onSubmit={handleSendMessage}>
         <input
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Type a message..."
         />
-        <button type="submit">Send</button>
+        <button className="btn-small" type="submit">Send</button>
       </form>
     </div>
   );

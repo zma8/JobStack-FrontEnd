@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import ChatList from './Chat/ChatList';
 import ChatWindow from './Chat/ChatWindow';
 import { UserContext } from '../contexts/UserContext';
+import '../styles.css';
 
 export default function ChatPage() {
   const [selectedChat, setSelectedChat] = useState(null);
@@ -14,22 +15,29 @@ export default function ChatPage() {
   };
 
   if (!user) {
-    return <div>Please log in to view messages</div>;
+    return (<div className="container">
+        <div className="error">
+          Please log in to view messages
+        </div>
+      </div>);
   }
 
   return (
-    <div>
-      <h1>Chat</h1>
+    <div className="container">
+      <div className="header">
+        <h1 className="title">💬 Messages</h1>
+        <p className="subtitle">Connect with clients and freelancers</p>
+      </div>
 
-      <div>
-        <div>
+      <div className="chat-container">
+        <div className="chat-list">
           <ChatList
             currentUserId={user._id}
             onSelectChat={handleSelectChat}
           />
         </div>
 
-        <div>
+        <div className="chat-window">
           {selectedChat ? (
             <ChatWindow
               chatId={selectedChat}
@@ -37,8 +45,16 @@ export default function ChatPage() {
               otherUser={otherUser}
             />
           ) : (
-            <div>
-              <p>Select a chat to start messaging</p>
+            <div className="empty" style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              height: '100%',
+              gap: '16px'
+            }}>
+              <div style={{ fontSize: '4rem' }}>💬</div>
+              <p style={{ fontSize: '18px', color: '#64748b' }}>Select a chat to start messaging</p>
             </div>
           )}
         </div>
