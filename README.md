@@ -47,6 +47,9 @@ A modern, responsive freelance marketplace platform built with React, enabling c
 4. User context maintains auth state across app
 5. Protected routes redirect to login if not authenticated
 
+## Future work 
+1. admin page and dashboard
+2. adding the project after its done 
 
 ## Wireframes
 <img width="1419" height="697" alt="image" src="https://github.com/user-attachments/assets/fdd77170-179b-4914-acec-a21ea7a7a285" />
