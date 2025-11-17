@@ -118,103 +118,50 @@ export default function JobDetails() {
     <div className="job-details-container">
       {/* Toast Message */}
       {showMessage && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: messageType === "success" ? "#4caf50" : "#f44336",
-            color: "white",
-            padding: "15px 25px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-            zIndex: 9999,
-            textAlign: "center",
-            fontWeight: "bold",
-          }}
-        >
-          {message}
-        </div>
-      )}
+      <div className={`toast-message ${messageType === "success" ? "toast-success" : "toast-error"}`}>
+        {message}
+      </div>
+    )}
 
       {/* Confirmation Modal */}
       {showConfirm && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "#fff",
-            padding: "25px",
-            borderRadius: "10px",
-            boxShadow: "0 2px 12px rgba(0,0,0,0.3)",
-            zIndex: 10000,
-            textAlign: "center",
-            minWidth: "300px",
-          }}
-        >
-          <p style={{ marginBottom: "20px", fontWeight: "bold" }}>
-            Are you sure you want to delete this job?
-          </p>
-          <div>
+      <div className="modal-overlay">
+        <div className="modal-box">
+          <p className="modal-text">Are you sure you want to delete this job?</p>
+
+          <div className="modal-buttons">
             <button
               onClick={() => { handleDelete(); setShowConfirm(false); }}
-              style={{
-                marginRight: "10px",
-                padding: "8px 14px",
-                background: "red",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
+              className="btn btn-danger"
             >
               Confirm
             </button>
+
             <button
               onClick={() => setShowConfirm(false)}
-              style={{
-                padding: "8px 14px",
-                background: "#777",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "pointer",
-              }}
+              className="btn btn-secondary"
             >
               Cancel
             </button>
           </div>
         </div>
-      )}
+      </div>
+    )}
+
 
       {showReviewModal && acceptedFreelancerId && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 10000,
-          }}
-        >
-          <div style={{ maxWidth: "500px", width: "90%" }}>
-            <ReviewModal
-              freelancerId={acceptedFreelancerId}
-              clientId={user._id}
-              onClose={() => setShowReviewModal(false)}
-              onSuccess={handleReviewSuccess}
-            />
-          </div>
+      <div className="modal-overlay">
+        <div className="modal-box modal-large">
+          <ReviewModal
+            freelancerId={acceptedFreelancerId}
+            clientId={user._id}
+            onClose={() => setShowReviewModal(false)}
+            onSuccess={handleReviewSuccess}
+          />
         </div>
-      )}
+      </div>
+    )}
+
 
       <h1>{job.title}</h1>
       <p>{job.description}</p>
@@ -228,50 +175,28 @@ export default function JobDetails() {
 
       {/* Show Edit/Delete buttons only for owner */}
       {user?._id === job.owner?._id && (
-        <div style={{ marginTop: "20px" }}>
+        <div className="job-owner-actions">
           <button
             onClick={() => navigate(`/jobs/${job._id}/edit`)}
-            style={{
-              marginRight: "10px",
-              padding: "8px 14px",
-              background: "#007bff",
-              color: "white",
-              borderRadius: "6px",
-              border: "none",
-              cursor: "pointer",
-            }}
+             className="btn btn-primary"
           >
             Edit Job
           </button>
 
           <button
             onClick={() => setShowConfirm(true)}
-            style={{
-              padding: "8px 14px",
-              background: "red",
-              color: "white",
-              borderRadius: "6px",
-              border: "none",
-              cursor: "pointer",
-            }}
+             className="btn btn-danger"
           >
             Delete Job
           </button>
+
        {job.status === "Close" && acceptedFreelancerId && (
       <button
-    onClick={() => setShowReviewModal(true)}
-    style={{
-      marginTop: "10px",
-      padding: "8px 14px",
-      background: "#f59e0b",
-      color: "white",
-      borderRadius: "6px",
-      border: "none",
-      cursor: "pointer",
-    }}
-  >
-    Leave a Review
-  </button>
+        onClick={() => setShowReviewModal(true)}
+        className="btn btn-warning"
+         >
+         Leave a Review
+       </button>
           )}
         </div>
       )}
