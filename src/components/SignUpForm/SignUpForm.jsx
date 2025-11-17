@@ -9,12 +9,6 @@ import { UserContext } from '../../contexts/UserContext';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  // Pass the UserContext object to the useContext hook to access:
-  // - The user state (which we're not using here).
-  // - The setUser function to update the user state (which we are using).
-  //
-  // Destructure the object returned by the useContext hook for easy access
-  // to the data we added to the context with familiar names.
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
@@ -55,10 +49,13 @@ const SignUpForm = () => {
   };
 
   return (
+    <div className="auth-container">
+    <h1>Sign Up</h1>
+    <p>{message}</p>
+    <form onSubmit={handleSubmit}>
     <main>
       <h1>Sign Up</h1>
       <p>{message}</p>
-      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor='username'>Username:</label>
           <input
@@ -125,8 +122,9 @@ const SignUpForm = () => {
           <button disabled={isFormInvalid()}>Sign Up</button>
           <button onClick={() => navigate('/')}>Cancel</button>
         </div>
-      </form>
     </main>
+    </form>
+  </div>
   );
 };
 

@@ -36,10 +36,13 @@ const SignInForm = () => {
   };
 
   return (
+     <div className="auth-container">
+    <h1>Sign Up</h1>
+    <p>{message}</p>
+    <form autoComplete='off' onSubmit={handleSubmit}>
     <main>
       <h1>Sign In</h1>
       <p>{message}</p>
-      <form autoComplete='off' onSubmit={handleSubmit}>
         <div>
           <label htmlFor='username'>Username:</label>
           <input
@@ -68,10 +71,10 @@ const SignInForm = () => {
           <button>Sign In</button>
           <button onClick={() => navigate('/')}>Cancel</button>
         </div>
-      </form>
     </main>
+    </form>
+  </div>
   );
 };
 
 export default SignInForm;
-
