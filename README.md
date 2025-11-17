@@ -47,6 +47,15 @@ A modern, responsive freelance marketplace platform built with React, enabling c
 4. User context maintains auth state across app
 5. Protected routes redirect to login if not authenticated
 
+
+## Wireframes: ![JobStack Wireframes](JobStack-wireframes.png)
+
+## Relationship Diagram  
+[Click to view ERD](https://lucid.app/lucidchart/ae1d837c-aabc-4dec-843c-ef9942e76452/edit?viewport_loc=1304%2C-2065%2C2064%2C2060%2C0_0&invitationId=inv_9b11109b-bbcc-4d1c-8f41-9cef5d146ea8)
+
+## Trello 
+https://trello.com/b/4ptsB6SO/jobstack
+
 ## 🚀 Deployment 
 https://job-stack-front-end.vercel.app/
 
