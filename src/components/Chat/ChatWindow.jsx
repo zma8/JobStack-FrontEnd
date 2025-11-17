@@ -96,10 +96,10 @@ export default function ChatWindow({ chatId, currentUser, otherUser }) {
 
             return (
               <div
-                key={idindexx}
+                key={index}
                 className={`message ${isMyMessage ? "message-own" : "message-other"}`}
               >
-                {!isMine && <strong>{msg.sender.username}</strong>}
+                {!isMyMessage && <strong>{msg.sender.username}</strong>}
                 <p>{msg.text}</p>
                 
                 <small>

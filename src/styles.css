@@ -258,13 +258,14 @@ nav a:hover {
 }
 
 .chat-list {
-  width: 30%;
+  flex: 0 0 280px;   /* fixed width */
+  background: white;
   border-right: 1px solid #e5e7eb;
-  overflow-y: auto;
-  background: #f8f9fc;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
+
 
 .chat-list-header {
   padding: 20px;
@@ -850,8 +851,6 @@ nav a:hover {
     height: auto;
   }
 
-  .chat-list {
-    width: 100%;
-    max-height: 300px;
-  }
+
+
 }
