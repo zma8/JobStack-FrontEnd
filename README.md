@@ -66,6 +66,7 @@ https://job-stack-front-end.vercel.app/
 
 ## 👥 Authors
 Zainab Moosa - https://github.com/zma8
-
+Ali Qambar
+Zainab Mohammed
 
 For backend documentation, see the https://github.com/zma8/JobStack-API
