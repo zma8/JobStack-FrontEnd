@@ -71,6 +71,11 @@ const Profile = () => {
   if (!profileUser) return <div>User not found</div>;
 
   return (
+     <div className="profile-container">
+    <div className="profile-header">
+      <h3>{isOwnProfile ? 'My Profile' : `${profileUser.username}'s Profile`}</h3>
+    </div>
+    <div className="profile-content">
     <div>
       <h3>{isOwnProfile ? 'My Profile' : `${profileUser.username}'s Profile`}</h3>
 
@@ -148,6 +153,8 @@ const Profile = () => {
         </div>
       )}
     </div>
+     </div>
+  </div>
   );
 };
 

@@ -15,9 +15,20 @@ export default function ReviewsList({ freelancerId }) {
   const fetchReviews = async () => {
     try {
       const data = await getFreelancerReviews(freelancerId);
-      setReviews(data.reviews);
-      setAverageRating(data.averageRating);
-      setTotalReviews(data.totalReviews);
+      
+      const reviewsArray = data.reviews || [];
+      setReviews(reviewsArray);
+      
+      if (reviewsArray.length > 0) {
+        const sum = reviewsArray.reduce((acc, review) => acc + (review.rating || 0), 0);
+        const avg = sum / reviewsArray.length;
+        setAverageRating(avg);
+        console.log('Calculated average:', avg, 'from reviews:', reviewsArray.map(r => r.rating));
+      } else {
+        setAverageRating(0);
+      }
+      
+      setTotalReviews(reviewsArray.length);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -26,31 +37,30 @@ export default function ReviewsList({ freelancerId }) {
   };
 
   if (loading) {
-    return <div>Loading reviews...</div>;
+    return <div className="loading">Loading reviews...</div>;
   }
 
   return (
-    <div>
+    <div className="reviews-list-container">
       {totalReviews > 0 && (
-        <div>
+        <div className="reviews-summary">
           <h4>Average Rating: {averageRating.toFixed(1)}</h4>
           <StarRating rating={Math.round(averageRating)} readOnly={true} />
           <p>{totalReviews} {totalReviews === 1 ? 'review' : 'reviews'}</p>
         </div>
       )}
 
-      <div>
+      <div className="reviews-list">
         {reviews.length === 0 ? (
-          <p>No reviews yet</p>
+          <p className="reviews-empty">No reviews yet</p>
         ) : (
           reviews.map((review, index) => (
-            <div key={index}>
+            <div key={index} className="review-item">
               <StarRating rating={review.rating} readOnly={true} />
               {review.comment && <p>{review.comment}</p>}
               <p>
                 {new Date(review.createdAt).toLocaleDateString()}
               </p>
-              <hr />
             </div>
           ))
         )}

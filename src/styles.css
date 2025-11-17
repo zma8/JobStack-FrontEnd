@@ -1164,17 +1164,14 @@ nav a:hover {
   margin: 30px 0;
 }
 
-/* Ensure buttons have proper styling */
 .job-owner-actions .btn {
   margin: 0;
 }
 
-/* Add some spacing for forms and lists */
 .job-details-container > * {
   margin-bottom: 20px;
 }
 
-/* Submit Bid Form Styles */
 .submit-bid-form {
   background: white;
   padding: 25px;
@@ -1246,4 +1243,436 @@ nav a:hover {
 
 .submit-bid-form button[type="submit"]:active {
   transform: translateY(0);
+}.submit-bid-form button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+.auth-container {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.auth-container h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.auth-container > p {
+  text-align: center;
+  color: #ef4444;
+  font-size: 14px;
+  margin-bottom: 20px;
+  min-height: 20px;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-container form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.auth-container label {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 14px;
+}
+
+.auth-container input,
+.auth-container select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  background: white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-container input:focus,
+.auth-container select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.auth-container form > div:last-child {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.auth-container button {
+  flex: 1;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.auth-container button:first-child {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.auth-container button:first-child:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.auth-container button:first-child:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.auth-container button:last-child {
+  background: #e5e7eb;
+  color: #1e293b;
+}
+
+.auth-container button:last-child:hover {
+  background: #d1d5db;
+}
+
+.profile-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.profile-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  color: white;
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
+
+.profile-header h3 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.profile-content {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.profile-content p {
+  font-size: 16px;
+  margin: 12px 0;
+  color: #475569;
+}
+
+.profile-content strong {
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.profile-content input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 15px;
+  margin: 8px 0;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.profile-content input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.profile-content button {
+  background: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.profile-content button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.profile-content h4 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 30px 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.skill-tag {
+  background: #eff6ff;
+  color: #1e40af;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-tag button {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 0;
+  transition: background 0.2s;
+}
+
+.skill-tag button:hover {
+  background: #dc2626;
+}
+
+.skills-edit {
+  margin: 20px 0;
+}
+
+.skills-edit input {
+  max-width: 300px;
+  margin-right: 10px;
+}
+
+.skills-edit button {
+  background: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.2s;
+}
+
+.skills-edit button:hover {
+  background: #2563eb;
+}
+
+.review-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.review-modal-content {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.review-modal-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
+}
+
+.review-modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.review-modal-content form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-modal-content label {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.review-modal-content textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.review-modal-content textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.review-modal-content form > div:last-child {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.review-modal-content button {
+  flex: 1;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.review-modal-content button[type="button"] {
+  background: #e5e7eb;
+  color: #1e293b;
+}
+
+.review-modal-content button[type="button"]:hover:not(:disabled) {
+  background: #d1d5db;
+}
+
+.review-modal-content button[type="submit"] {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.review-modal-content button[type="submit"]:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.review-modal-content button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.reviews-list-container {
+  margin-top: 20px;
+}
+
+.reviews-summary {
+  background: #f8f9fc;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.reviews-summary h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+
+.reviews-summary p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 8px 0 0 0;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.review-item {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.review-item p {
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+
+.review-item p:last-child {
+  color: #94a3b8;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.review-item hr {
+  display: none;
+}
+
+.reviews-empty {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+  font-style: italic;
 }

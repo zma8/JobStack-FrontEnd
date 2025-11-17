@@ -49,10 +49,13 @@ const SignUpForm = () => {
   };
 
   return (
+    <div className="auth-container">
+    <h1>Sign Up</h1>
+    <p>{message}</p>
+    <form onSubmit={handleSubmit}>
     <main>
       <h1>Sign Up</h1>
       <p>{message}</p>
-      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor='username'>Username:</label>
           <input
@@ -119,8 +122,9 @@ const SignUpForm = () => {
           <button disabled={isFormInvalid()}>Sign Up</button>
           <button onClick={() => navigate('/')}>Cancel</button>
         </div>
-      </form>
     </main>
+    </form>
+  </div>
   );
 };
 
