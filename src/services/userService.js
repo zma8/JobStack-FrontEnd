@@ -1,6 +1,7 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
 const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` }
 
+
 export const index = async () => {
   try {
     const res = await fetch(`${BASE_URL}/`, {
@@ -22,20 +23,24 @@ export const index = async () => {
   }
 }
 
+
 export const updateFreelancerSkills = async (userId, skills) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.put(
-      `${import.meta.env.VITE_BACK_END_SERVER_URL}/users/${userId}/skills`, // ← Use env variable
-      { skills },
+    const res = await fetch(
+      `${import.meta.env.VITE_BACK_END_SERVER_URL}/users/${userId}/skills`,
       {
+        method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({ skills })
       }
     );
-    return response.data;
+
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error('Error updating skills:', error);
     throw error;
