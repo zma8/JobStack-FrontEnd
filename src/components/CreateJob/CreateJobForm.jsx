@@ -12,7 +12,6 @@ export default function CreateJobForm() {
   const [budget, setBudget] = useState("");
   const [category, setCategory] = useState("");
 
-  // Categories from backend model
   const categories = [
     "Web Development",
     "Mobile Development",
@@ -48,7 +47,7 @@ export default function CreateJobForm() {
     const created = await createJob(jobData);
 
     if (created) {
-      navigate("/jobs"); // redirect to job list
+      navigate("/jobs"); 
     }
   };
 

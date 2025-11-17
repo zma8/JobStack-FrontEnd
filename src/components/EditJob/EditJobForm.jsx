@@ -107,31 +107,19 @@ export default function EditJobForm() {
 
   return (
     <div className="edit-job-container">
+          <div className="edit-job-header">
+
       <h1>Edit Job</h1>
+      </div>
 
       {/* Toast Message */}
       {showMessage && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: messageType === "success" ? "#4caf50" : "#f44336",
-            color: "white",
-            padding: "15px 25px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-            zIndex: 9999,
-            textAlign: "center",
-            fontWeight: "bold",
-          }}
-        >
-          {message}
-        </div>
-      )}
+      <div className={`toast-message ${messageType === "success" ? "toast-success" : "toast-error"}`}>
+        {message}
+      </div>
+    )}
 
-      <form onSubmit={handleSubmit} style={{ maxWidth: "500px" }}>
+      <form onSubmit={handleSubmit}className="edit-job-form"> 
         {/* Job Title */}
         <label>Title</label>
         <input
@@ -187,18 +175,7 @@ export default function EditJobForm() {
         </select>
 
         {/* Submit button */}
-        <button
-          type="submit"
-          style={{
-            marginTop: "15px",
-            padding: "10px 15px",
-            background: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer"
-          }}
-        >
+        <button type="submit" className="edit-job-submit">
           Save Changes
         </button>
       </form>
