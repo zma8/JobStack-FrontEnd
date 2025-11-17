@@ -11,41 +11,38 @@ const Profile = () => {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   
-  // NEW: State for skills editing
   const [isEditingSkills, setIsEditingSkills] = useState(false);
   const [skills, setSkills] = useState([]);
   const [newSkill, setNewSkill] = useState('');
 
   const isOwnProfile = !userId || userId === currentUser?._id;
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        if (isOwnProfile) {
-          const data = await getCurrentUser();
-          setProfileUser(data);
-          // NEW: Set skills from freelancer profile
-          if (data.freelancerProfile && data.freelancerProfile.skills) {
-            setSkills(data.freelancerProfile.skills);
-          }
-        } else {
-          const data = await getUserById(userId);
-          setProfileUser(data);
-          // NEW: Set skills from freelancer profile
-          if (data.freelancerProfile && data.freelancerProfile.skills) {
-            setSkills(data.freelancerProfile.skills);
-          }
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        setLoading(false);
-      }
-    };
-    fetchProfile();
-  }, [userId, isOwnProfile]);
+  const fetchProfile = async () => {
+  try {
+    let data;
+    if (isOwnProfile) {
+      data = await getCurrentUser();
+    } else {
+      data = await getUserById(userId);
+    }
+    
+    setProfileUser(data);
+    
+    if (data.freelancerProfile && data.freelancerProfile.skills) {
+      setSkills(data.freelancerProfile.skills);
+    }
+    
+    setLoading(false);
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    setLoading(false);
+  }
+};
 
-  // NEW: Function to add a skill
+  useEffect(() => {
+  fetchProfile();
+}, [userId, isOwnProfile]);
+
   const handleAddSkill = () => {
     if (newSkill.trim() && !skills.includes(newSkill.trim())) {
       setSkills([...skills, newSkill.trim()]);
@@ -60,18 +57,15 @@ const Profile = () => {
 
 
   const handleSaveSkills = async () => {
-    try {
-      const targetUserId = isOwnProfile ? currentUser._id : userId;
-      const result = await updateFreelancerSkills(targetUserId, skills);
-      setProfileUser(result.data);
-      setIsEditingSkills(false);
-      alert('Skills updated successfully!');
-    } catch (error) {
-      console.error("Error updating skills:", error);
-      alert('Failed to update skills');
-    }
-  };
-
+  try {
+    const targetUserId = isOwnProfile ? currentUser._id : userId;
+    await updateFreelancerSkills(targetUserId, skills);
+    await fetchProfile(); 
+    setIsEditingSkills(false);
+  } catch (error) {
+    console.error("Error updating skills:", error);
+  }
+};
 
   if (loading) return <div>Loading...</div>;
   if (!profileUser) return <div>User not found</div>;
@@ -112,13 +106,13 @@ const Profile = () => {
         <div>
           <h4>Skills</h4>
           
-          {/* MODIFIED: Changed skills display section */}
+
           <div className="skills-list">
             {skills.length > 0 ? (
               skills.map((skill, i) => (
                 <span key={i} className="skill-tag">
                   {skill}
-                  {/* NEW: Show remove button when editing */}
+
                   {isEditingSkills && isOwnProfile && (
                     <button onClick={() => handleRemoveSkill(skill)}>Delete</button>
                   )}
@@ -129,7 +123,6 @@ const Profile = () => {
             )}
           </div>
 
-          {/* NEW: Skills editing section */}
           {isOwnProfile && (
             <div className="skills-edit">
               {!isEditingSkills ? (
