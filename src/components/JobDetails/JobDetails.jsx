@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getJobById } from "../../services/jobsService";
 import BidList from "./BidList";
 import SubmitBidForm from "./SubmitBidForm";
+import ReviewModal from "../Reviews/ReviewModel";
 import { UserContext } from "../../contexts/UserContext";
 
 export default function JobDetails() {
@@ -20,6 +21,9 @@ export default function JobDetails() {
   // Confirmation modal state
   const [showConfirm, setShowConfirm] = useState(false);
 
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [acceptedFreelancerId, setAcceptedFreelancerId] = useState(null);
+
   const showToast = (text, type = "success") => {
     setMessage(text);
     setMessageType(type);
@@ -36,6 +40,15 @@ export default function JobDetails() {
 
     fetchJob();
   }, [id]);
+
+  useEffect(() => {
+    if (job && job.bids) {
+      const acceptedBid = job.bids.find(bid => bid.status === 'accepted');
+      if (acceptedBid) {
+        setAcceptedFreelancerId(acceptedBid.freelancerId);
+      }
+    }
+  }, [job]);
 
   // DELETE JOB
   const handleDelete = async () => {
@@ -60,6 +73,42 @@ export default function JobDetails() {
       showToast("Error deleting job", "error");
       console.error(err);
     }
+  };
+  const handleCloseJob = async () => {
+    if (!acceptedFreelancerId) {
+      showToast("No freelancer accepted for this job", "error");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_BACK_END_SERVER_URL}/jobs/${job._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ status: "Closed" }),
+        }
+      );
+
+      if (res.ok) {
+        showToast("Job closed successfully", "success");
+        setShowReviewModal(true); // Show review modal
+        const updatedJob = await getJobById(id);
+        setJob(updatedJob);
+      } else {
+        showToast("Failed to close job", "error");
+      }
+    } catch (err) {
+      showToast("Error closing job", "error");
+      console.error(err);
+    }
+  };
+
+  const handleReviewSuccess = () => {
+    showToast("Review submitted successfully!", "success");
   };
 
   if (loading) return <p>Loading...</p>;
@@ -141,6 +190,32 @@ export default function JobDetails() {
         </div>
       )}
 
+      {showReviewModal && acceptedFreelancerId && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 10000,
+          }}
+        >
+          <div style={{ maxWidth: "500px", width: "90%" }}>
+            <ReviewModal
+              freelancerId={acceptedFreelancerId}
+              clientId={user._id}
+              onClose={() => setShowReviewModal(false)}
+              onSuccess={handleReviewSuccess}
+            />
+          </div>
+        </div>
+      )}
+
       <h1>{job.title}</h1>
       <p>{job.description}</p>
 
@@ -182,6 +257,22 @@ export default function JobDetails() {
           >
             Delete Job
           </button>
+       {job.status === "Close" && acceptedFreelancerId && (
+      <button
+    onClick={() => setShowReviewModal(true)}
+    style={{
+      marginTop: "10px",
+      padding: "8px 14px",
+      background: "#f59e0b",
+      color: "white",
+      borderRadius: "6px",
+      border: "none",
+      cursor: "pointer",
+    }}
+  >
+    Leave a Review
+  </button>
+          )}
         </div>
       )}
 
