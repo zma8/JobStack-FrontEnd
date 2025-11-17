@@ -1,8 +1,7 @@
-// src/components/Dashboard/Dashboard.jsx
-
-import { useContext, useEffect } from 'react';
-import * as userService from '../../services/userService'
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+import { getJobs } from '../../services/jobsService';
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
